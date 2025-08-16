@@ -58,7 +58,14 @@ private final JwtRequestFilter jwtRequestFilter;
 
     private UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config =new CorsConfiguration();
-        config.setAllowedOrigins(List.of("https://billing-software-h83olvfci-shantanu-prajapatis-projects.vercel.app"));
+        // 🔹 CHANGE HERE: use setAllowedOriginPatterns instead of setAllowedOrigins
+        config.setAllowedOriginPatterns(List.of(
+                "http://localhost:3000",                          // local frontend
+                "https://billing-software-owvbuiucn-shantanu-prajapatis-projects.vercel.app", // specific vercel link
+                "https://*.vercel.app"                            // wildcard for future vercel links
+        ));
+
+        //config.setAllowedOrigins(List.of("https://billing-software-h83olvfci-shantanu-prajapatis-projects.vercel.app", "https://*.vercel.app"));
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
